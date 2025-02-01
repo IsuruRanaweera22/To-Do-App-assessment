@@ -9,6 +9,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,15 +36,26 @@ public class TaskServiceIMPL implements TaskService {
     }
 
     @Override
-    public List<TaskDTO> getAllTasksCompleted(boolean b) {
-        List<Task> allTasks = taskRepo.findAllByisCompletedEquals(b);
-        List<TaskDTO> returnedTasks = modelMapper.map(allTasks , new TypeToken<List<TaskDTO>>(){}.getType());
-        if(!returnedTasks.isEmpty()){
+    public List<TaskDTO> getAllTasksCompleted(boolean status, int page, int size) {
+        // Fetch the tasks as a Page object
+        Page<Task> allTasks = taskRepo.findAllByisCompletedEquals(status, PageRequest.of(page, size));
+
+        System.out.println("all tasks " + allTasks);
+
+        // Correct mapping: Convert the Page content to a List<TaskDTO>
+        List<TaskDTO> returnedTasks = allTasks.getContent().stream()
+                .map(task -> modelMapper.map(task, TaskDTO.class)) // Convert each Task to TaskDTO
+                .toList(); // Collect as a List
+
+        // Check if the list is empty and throw an exception if it is
+        if (!returnedTasks.isEmpty()) {
             return returnedTasks;
-        }else{
+        } else {
             throw new RuntimeException("Not found...");
         }
     }
+
+
 
     @Override
     public String markAsDone(Integer id) {

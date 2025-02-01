@@ -66,7 +66,7 @@ public class TaskControllerUnitTest {
     public void testGetAllTasksCompleted() throws Exception {
         List<TaskDTO> taskList = List.of(taskDTO);
 
-        when(taskService.getAllTasksCompleted(false)).thenReturn(taskList);
+        when(taskService.getAllTasksCompleted(false, 0, 5)).thenReturn(taskList);
 
         mockMvc.perform(get("/api/v1/task/get-all-completed/false")
                         .contentType(MediaType.APPLICATION_JSON))

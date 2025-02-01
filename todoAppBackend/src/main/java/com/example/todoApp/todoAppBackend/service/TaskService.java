@@ -9,5 +9,5 @@ public interface TaskService {
 
     String markAsDone(Integer id);
 
-    List<TaskDTO> getAllTasksCompleted(boolean b);
+    List<TaskDTO> getAllTasksCompleted(boolean status, int page, int size);
 }

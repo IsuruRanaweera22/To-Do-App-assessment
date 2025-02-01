@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../components/button.module.css';
+import styles from '../../styles/button.module.css';
 
 const SubmitBtn = ({disabled}) => {
   return (

@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/task")
-@CrossOrigin(origins = "http://localhost:3000")
 public class TaskController {
 
     @Autowired
@@ -26,10 +25,12 @@ public class TaskController {
                 HttpStatus.OK
         );
     }
-
-    @GetMapping("/get-all-completed/{bool}")
-    public ResponseEntity<StandardResponse> getAllTasksCompleted(@PathVariable boolean bool){
-        List<TaskDTO> taskDTO = taskService.getAllTasksCompleted(bool);
+    @GetMapping(path = "/get-all-completed/", params = {"status", "page", "size"})
+    public ResponseEntity<StandardResponse> getAllTasksCompleted(@RequestParam("status") boolean status,
+                                                                 @RequestParam("page") int page,
+                                                                 @RequestParam("size") int size) {
+        System.out.println(status + " " + page + " " + size);
+        List<TaskDTO> taskDTO = taskService.getAllTasksCompleted(status, page, size);
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200, "Success", taskDTO),
                 HttpStatus.OK
