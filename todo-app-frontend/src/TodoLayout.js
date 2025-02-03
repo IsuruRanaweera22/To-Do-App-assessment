@@ -76,7 +76,7 @@ const TodoLayout = () => {
                     <p>Due on: {task.dueDate || "-"}</p>
                   </div>
                 </li>
-                <button className={styles.Button} type="button" onClick={() => markAsDone(task.taskId)}>Done</button>
+                <button className={styles.Button} type="button" onClick={() => markAsDone(task.taskId)} aria-label="Mark as done">Done</button>
               </ul>
             ))}
           </div>
