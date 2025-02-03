@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import TodoLayout from './TodoLayout.js'; // Ensure the path is correct
+import TodoLayout from './TodoLayout.js';
 
 function App() {
   return (

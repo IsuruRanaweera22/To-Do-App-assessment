@@ -1,5 +1,4 @@
 package com.example.todoApp.todoAppBackend.utils;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class StandardResponse {
-
     private int code;
     private String message;
     private Object data;
