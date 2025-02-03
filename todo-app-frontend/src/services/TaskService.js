@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 const API_URL = process.env.REACT_APP_API_URL;
 export const getAllTasks = async () => {
   try {
-    const response = await axios.get(`${API_URL}/get-all-completed/`, {
+    const response = await axios.get(`${API_URL}/get-all-completed`, {
       params: {
         status: false,
         page: 0,

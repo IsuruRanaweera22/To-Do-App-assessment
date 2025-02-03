@@ -29,11 +29,10 @@ public class TaskController {
     public ResponseEntity<StandardResponse> getAllTasksCompleted(@RequestParam("status") boolean status,
                                                                  @RequestParam("page") int page,
                                                                  @RequestParam("size") int size) {
+        System.out.println("backend reached...");
         List<TaskDTO> taskDTO = taskService.getAllTasksCompleted(status, page, size);
         return new ResponseEntity<>(new StandardResponse(200, "Success", taskDTO), HttpStatus.OK);
     }
-
-
 
     @PutMapping("/{id}/complete")
     public ResponseEntity<StandardResponse> markAsDone(@PathVariable Integer id){

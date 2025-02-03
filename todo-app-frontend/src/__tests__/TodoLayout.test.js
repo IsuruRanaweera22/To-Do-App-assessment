@@ -1,5 +1,5 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import React, {act} from 'react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import TodoLayout from '../TodoLayout.js';
 import Swal from 'sweetalert2';
 import axios from 'axios';
@@ -10,13 +10,12 @@ jest.mock('axios');
 // Reset all mocks before each test
 beforeEach(() => {
   jest.clearAllMocks();
-  global.fetch = jest.fn(() =>
-    Promise.resolve({
-      ok: true,
-      json: () => Promise.resolve({ data: [] }),
-    })
-  );
+  global.fetch = jest.fn().mockResolvedValueOnce({
+    ok: true,
+    json: () => Promise.resolve({ data: [] }),
+  });
 });
+
 
 // Mock API responses
 axios.put.mockResolvedValue({
@@ -28,7 +27,6 @@ describe('TodoLayout Component', () => {
     await act(async () => {
       render(<TodoLayout />);
     });
-
     expect(screen.getByText(/To-Do App/i)).toBeInTheDocument();
   });
 
@@ -53,8 +51,7 @@ describe('TodoLayout Component', () => {
     await act(async () => {
       render(<TodoLayout />);
     });
-
-    await waitFor(() => expect(fetch).toHaveBeenCalledTimes(1));
+    await waitFor(() => expect(global.fetch).toHaveBeenCalledTimes(1));
   });
 
   test('adds a new task and calls API', async () => {

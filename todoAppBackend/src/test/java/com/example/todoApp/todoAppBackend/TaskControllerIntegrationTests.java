@@ -1,5 +1,4 @@
 package com.example.todoApp.todoAppBackend;
-
 import com.example.todoApp.todoAppBackend.dto.TaskDTO;
 import com.example.todoApp.todoAppBackend.entity.Task;
 import com.example.todoApp.todoAppBackend.repo.TaskRepo;
@@ -75,8 +74,8 @@ public class TaskControllerIntegrationTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(taskDTO)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value(200)) // Check response status code
-                .andExpect(jsonPath("$.message").value("Success")) // Check success message
+                .andExpect(jsonPath("$.code").value(200))
+                .andExpect(jsonPath("$.message").value("Success"))
                 .andExpect(jsonPath("$.data").isString());
     }
 
@@ -116,8 +115,8 @@ public class TaskControllerIntegrationTests {
 
         mockMvc.perform(put("/api/v1/task/" + task.getTaskId() + "/complete"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.code").value(200)) // Check response status code
-                .andExpect(jsonPath("$.message").value("Success")) // Check success message
+                .andExpect(jsonPath("$.code").value(200))
+                .andExpect(jsonPath("$.message").value("Success"))
                 .andExpect(jsonPath("$.data").isString());
 
         Assertions.assertTrue(taskRepository.findById(task.getTaskId()).get().isCompleted());
